@@ -1,0 +1,52 @@
+:root {
+  --background: #f0f2f5;
+  --blog: #ffffff;
+  --border: #404040;
+  --button: #208d0a;
+  --header: #1d5bac;
+  --navbar: #000505;
+  --navbar-full: #181d1d;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  background-color: var(--background);
+  font: 16px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+footer {
+  color: white;
+  background-color: var(--header);
+  margin: auto 0;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer p {
+  margin: 0;
+}
+
+.blogs {
+  height: calc(100vh - 105px);
+}
+
+.blogs h2 {
+  padding: 1rem;
+  margin: 0;
+}
+
+@media only screen and (min-width: 550px) {
+  .wrapper {
+    float: right;
+    display: flex;
+    justify-content: center;
+    width: calc(100vw - 150px);
+  }
+
+  footer {
+    width: 100%;
+  }
+}

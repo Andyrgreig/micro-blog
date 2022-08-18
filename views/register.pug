@@ -1,0 +1,22 @@
+extends layout
+
+block content
+   
+  form(action="/register" method="POST")
+    h2 Register
+    label Username 
+    input(name="username" placeholder="username" type="text")
+    label Password
+    input(name="password" type="password")
+    label Confirm password 
+    input(name="confirmPassword" type="password")
+    input(class="button" type='submit',value='Submit')
+
+    p #{message}
+
+  if errors
+   ul
+    for error in errors
+      li!= error.msg  
+
+

@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  
+  form(action="/login" method="POST")
+    h2 Please log in
+    label Username
+    input(name="username" placeholder="username" type="text" value=username)
+    label Password
+    input(name="password" type="password")
+    input(class="button" type='submit',value='Submit')
+
+  if errors
+   ul
+    for error in errors
+      li!= error.msg  
+
+
+
+  

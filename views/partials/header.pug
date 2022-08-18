@@ -1,2 +1,15 @@
 header
-  h1(class="header") Micro Blog
+  
+  div(class="header-container")
+    a(href="#", class="toggle-button")
+      span(class="bar")
+      span(class="bar")
+      span(class="bar")
+
+    h1(class="header") Micro Blog
+    if user
+      p(class="username") #{user.username}
+    else 
+      p(class="username") Guest
+
+        

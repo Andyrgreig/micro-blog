@@ -4,41 +4,86 @@ const path = require("path");
 const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const favicon = require("serve-favicon");
-const dotenv = require("dotenv").config();
-
-//require routes
+const compression = require("compression");
+const session = require("express-session");
+const passport = require("passport");
 const blogRouter = require("./routes/blogRoutes");
 const userRouter = require("./routes/userRoutes");
 
+const MongoStore = require("connect-mongo");
+
+/**
+ *
+ * -------------- GENERAL SETUP ----------------
+ */
+require("dotenv").config();
+
 const app = express();
 
-//Set up mongoose connection
+// view engine
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "pug");
+
+app.use(logger("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "public")));
+app.use(favicon(__dirname + "/public/images/favicon.ico"));
+app.use(compression()); // Compress all routes
+
+/**
+ *
+ * -------------- SESSION SETUP ----------------
+ */
+// import database config
 const mongoose = require("mongoose");
 const mongoDB = process.env.MONGODB;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "MongoDB connection error:"));
 
-// view engine setup
-app.set("views", path.join(__dirname, "views"));
-app.set("view engine", "pug");
+app.use(
+  session({
+    secret: process.env.SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB }),
+    cookie: {
+      maxAge: 604800000, // Equals 7 days
+    },
+  })
+);
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
-app.use(favicon(__dirname + "/favicon.ico"));
+/**
+ *
+ * -------------- PASSPORT AUTHENTICATION ----------------
+ */
 
-// app.use("/product", productRouter);
-// app.use("/users", usersRoutes);
-app.get("/", (req, res) => {
-  res.status(200).render("index", {
-    title: "Log in",
-  });
-});
+require("./config/passport");
 
-// catch 404 and forward to error handler
+app.use(passport.initialize());
+app.use(passport.session());
+
+// app.use((req, res, next) => {
+//   console.log(req.session);
+//   console.log(req.user);
+//   next();
+// });
+
+/**
+ *
+ * -------------- ROUTES ----------------
+ */
+
+app.use("/", blogRouter);
+app.use("/", userRouter);
+
+/**
+ *
+ * -------------- ERROR HANDLERS ----------------
+ */
+
 app.use(function (req, res, next) {
   next(createError(404));
 });
@@ -53,5 +98,10 @@ app.use(function (err, req, res, next) {
   res.status(err.status || 500);
   res.render("error");
 });
+
+/**
+ *
+ * -------------- EXPORT APP ----------------
+ */
 
 module.exports = app;

@@ -3,10 +3,12 @@ const mongoose = require("mongoose");
 //Define a schema
 const Schema = mongoose.Schema;
 
-const UserSchema = new Schema({
-  username: { type: String, required: true },
-  password: { type: String, required: true },
-  role: { type: String, required: true },
+const UserSchema = new mongoose.Schema({
+  username: String,
+  hash: String,
+  salt: String,
+  member: Boolean,
+  admin: Boolean,
 });
 
 // Compile model from schema

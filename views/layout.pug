@@ -3,14 +3,21 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/header.css')
+    link(rel='stylesheet', href='/stylesheets/nav.css')
+    link(rel='stylesheet', href='/stylesheets/form.css')
       
   body
-    
+
   include partials/header
   
-  block content
+  include partials/nav
+  
+  div(class="wrapper")
+    block content
     
   include partials/footer
 
 
-    
+script
+  include ../public/javascript/menu.js

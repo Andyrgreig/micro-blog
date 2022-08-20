@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  
+  form(action="/become-admin" method="POST")
+    h2 Become an Admin 
+    p Enter the secret password to gain admin privileges
+    input(name="password" type="password")
+    input(class="button" type='submit',value='Submit')
+
+  if errors
+   ul
+    for error in errors
+      li!= error.msg 

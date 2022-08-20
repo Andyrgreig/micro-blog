@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  
+  form(action="/become-member" method="POST")
+    h2 Become a member 
+    p Enter the secret password to gain membership privileges
+    input(name="password" type="password")
+    input(class="button" type='submit',value='Submit')
+
+  if errors
+   ul
+    for error in errors
+      li!= error.msg 

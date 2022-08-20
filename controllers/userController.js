@@ -3,6 +3,7 @@ const { body, validationResult } = require("express-validator");
 const passport = require("passport");
 const bcryptjs = require("bcryptjs");
 const generatePassword = require("../passwordUtilities").generatePassword;
+require("dotenv").config();
 
 exports.getNewUserForm = (req, res) => {
   res.status(200).render("register");
@@ -76,3 +77,79 @@ exports.logout = (req, res, next) => {
     res.redirect(req.get("referer"));
   });
 };
+
+exports.getBecomeMember = (req, res) => {
+  res.status(200).render("become-member");
+};
+
+exports.getBecomeAdmin = (req, res) => {
+  res.status(200).render("become-admin");
+};
+
+exports.postBecomeMember = [
+  // Validate and sanitise password field
+  body("password", "Incorrect password")
+    .trim()
+    .escape()
+    .equals(process.env.MEMBER),
+  (req, res) => {
+    const errors = validationResult(req);
+
+    const update = {
+      username: req.user.username,
+      hash: req.user.hash,
+      salt: req.user.salt,
+      member: true,
+      admin: req.user.admin,
+    };
+    // If there are errors. Render the form again with sanitized values/error messages.
+    if (!errors.isEmpty()) {
+      res.render("become-member", {
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      User.findByIdAndUpdate(req.user.id, update)
+        .then(() => {
+          res.redirect("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  },
+];
+
+exports.postBecomeAdmin = [
+  // Validate and sanitise password field
+  body("password", "Incorrect password")
+    .trim()
+    .escape()
+    .equals(process.env.ADMIN),
+  (req, res) => {
+    const errors = validationResult(req);
+
+    const update = {
+      username: req.user.username,
+      hash: req.user.hash,
+      salt: req.user.salt,
+      member: req.user.member,
+      admin: true,
+    };
+    // If there are errors. Render the form again with sanitized values/error messages.
+    if (!errors.isEmpty()) {
+      res.render("become-admin", {
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      User.findByIdAndUpdate(req.user.id, update)
+        .then(() => {
+          res.redirect("/");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    }
+  },
+];

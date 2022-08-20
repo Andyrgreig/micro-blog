@@ -4,6 +4,10 @@ nav(class="navbar")
     div(class="user")
       if user
         a(href="/logout") Log out
+        if !user.member
+          a(href="/become-member") Become a Member
+        else if !user.admin
+          a(href="/become-admin") Become an Admin
       else
         a(href="/login") Login
         a(href="/register") Register
@@ -11,6 +15,3 @@ nav(class="navbar")
     div(class="blog")
       a(href="/") Home
       
-  
-
-

@@ -17,4 +17,4 @@ Member password: exclusive
 Admin password: delete
 
 
-## Live preview: 
+## Live preview: https://floating-brushlands-81138.herokuapp.com/

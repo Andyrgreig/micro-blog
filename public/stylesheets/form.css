@@ -17,7 +17,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+textarea {
   box-sizing: border-box;
   height: 25px;
   background-color: var(--blog);
@@ -28,8 +29,9 @@ input[type="password"] {
   width: 100%;
 }
 
-input[type="submit"] {
-  margin-top: 2rem;
+textarea {
+  line-height: 18px;
+  height: 200px;
 }
 
 input[type="submit"] {
@@ -44,9 +46,39 @@ input[type="submit"] {
   font-size: 1.2rem;
 }
 
-/* @media only screen and (min-width: 550px) {
-  form {
-    display: flex;
-    align-items: center;
-  }
+.button-container {
+  display: flex;
+  justify-content: center;
+  margin: 1rem;
+}
+
+/* .delete-container {
+  display: flex;
+  justify-content: center;
 } */
+
+.delete-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.delete-item {
+  margin: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 5px;
+}
+
+.delete-item > * {
+  margin: 10px;
+}
+
+.delete {
+  height: 40px;
+}
+
+@media only screen and (min-width: 700px) {
+  .delete-item {
+    width: 350px;
+  }
+}

@@ -79,11 +79,25 @@ exports.logout = (req, res, next) => {
 };
 
 exports.getBecomeMember = (req, res) => {
-  res.status(200).render("become-member");
+  if (!req.user) {
+    res.status(200).redirect("login");
+  } else if (req.user.admin || req.user.member) {
+    res.status(200).redirect("/");
+  } else {
+    res.status(200).render("become-member");
+  }
 };
 
 exports.getBecomeAdmin = (req, res) => {
-  res.status(200).render("become-admin");
+  if (!req.user) {
+    res.status(200).redirect("login");
+  } else if (!req.user.member) {
+    res.status(200).redirect("become-member");
+  } else if (req.user.admin) {
+    res.status(200).redirect("/");
+  } else {
+    res.status(200).render("become-admin");
+  }
 };
 
 exports.postBecomeMember = [
@@ -102,6 +116,7 @@ exports.postBecomeMember = [
       member: true,
       admin: req.user.admin,
     };
+
     // If there are errors. Render the form again with sanitized values/error messages.
     if (!errors.isEmpty()) {
       res.render("become-member", {

@@ -1,0 +1,18 @@
+extends layout
+
+block content
+
+  div(class="delete-container")
+    div(class="delete-item")     
+      h2(class="title") #{blog.blogTitle}
+      p(class="body") #{blog.blogText}
+      p(class="tags") #{blog.tags}
+      div(class="blog-footer")
+        p(class="author") #{blog.author.username}
+        p(class="date") #{blog.posted}
+
+      form(class="delete" method='POST', action=blog.deleteUrl)    
+        div(class="button-container")
+          input(type='submit',value='Delete')
+
+

@@ -3,17 +3,19 @@ html
   head
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/form.css')
     link(rel='stylesheet', href='/stylesheets/header.css')
     link(rel='stylesheet', href='/stylesheets/nav.css')
-    link(rel='stylesheet', href='/stylesheets/form.css')
-      
+    link(rel='stylesheet', href='/stylesheets/blogs.css')
+
   body
 
   include partials/header
   
-  include partials/nav
-  
   div(class="wrapper")
+
+    include partials/nav
+  
     block content
     
   include partials/footer

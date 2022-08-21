@@ -8,12 +8,14 @@ block content
     input(name="username" placeholder="username" type="text" value=username)
     label Password
     input(name="password" type="password")
-    input(class="button" type='submit',value='Submit')
+    div(class="button-container")
+      input(class="button" type='submit',value='Submit')
 
-  if errors
-   ul
-    for error in errors
-      li!= error.msg  
+    if errors
+      p Errors - Please try again.
+      ul
+        for error in errors
+          li!= error.msg  
 
 
 

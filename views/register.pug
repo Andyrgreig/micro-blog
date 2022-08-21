@@ -10,13 +10,15 @@ block content
     input(name="password" type="password")
     label Confirm password 
     input(name="confirmPassword" type="password")
-    input(class="button" type='submit',value='Submit')
+    div(class="button-container")
+      input(class="button" type='submit',value='Submit')
 
     p #{message}
 
-  if errors
-   ul
-    for error in errors
-      li!= error.msg  
+    if errors
+      p Errors - Please try again.
+      ul
+        for error in errors
+          li!= error.msg  
 
 

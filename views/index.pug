@@ -4,6 +4,21 @@ block content
 
   div(class="blogs")
   
-    h2 Blogs go here
-
+    for blog in blogs
+      div(class="blog-container")     
+        div(class="title-container")
+          h2(class="title") #{blog.blogTitle}
+          if user 
+            if user.admin 
+              a(href=blog.updateUrl)
+                img(class="icon" src="/images/update.svg")
+              a(href=blog.deleteUrl)
+                img(class="icon" src="/images/delete.svg")
+        p(class="body") #{blog.blogText}
+        p(class="tags") #{blog.tags}
+        div(class="blog-footer")
+          if user
+            if user.member
+              p(class="author") #{blog.author.username}
+              p(class="date") #{blog.posted}
 

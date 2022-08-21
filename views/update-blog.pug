@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  
+  form(action=url method="POST")
+    h2 Update Blog Post
+    label Title 
+    input(name="blogTitle" placeholder="title" type="text" value=blogTitle)
+    label Entry
+    textarea(name='blogText' placeholder="text") #{blogText}
+    label Tags
+    input(name="tags" placeholder="tags" type="text" value=tags)
+    div(class="button-container")
+      input(class="button" type='submit',value='Submit')
+
+    if errors
+      p Errors - Please try again.
+      ul
+        for error in errors
+          li!= error.msg  
+
+
+
+  
+

@@ -1,7 +1,6 @@
 const User = require("../models/user");
 const { body, validationResult } = require("express-validator");
 const passport = require("passport");
-const bcryptjs = require("bcryptjs");
 const generatePassword = require("../passwordUtilities").generatePassword;
 require("dotenv").config();
 

@@ -20,3 +20,8 @@ Admin password: delete
 
 ## Live preview: 
 https://floating-brushlands-81138.herokuapp.com/
+
+
+## Planned Upgrades
+- Add a dynamic list of message tags to the navbar
+- Add a route allowing all blogs with a tag to be displayed 

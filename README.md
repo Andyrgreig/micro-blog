@@ -14,6 +14,7 @@ This website was completed for The Odin Project's [Members Only](https://www.the
 ## App Information:
 
 Member password: exclusive
+
 Admin password: delete
 
 
